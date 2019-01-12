@@ -7,5 +7,5 @@ import java.util.UUID
 
 @Component
 class DB {
-    val storage: Map<UUID, Any> = HashMap()
+    val storage: MutableMap<UUID, Any> = mutableMapOf()
 }

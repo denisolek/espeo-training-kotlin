@@ -1,6 +1,6 @@
 package com.denisolek.events.events
 
-interface EventHandler<T : Event> {
+interface EventHandler<in T : Event> {
     fun canHandle(e: Event): Boolean
     fun handle(e: T)
 }

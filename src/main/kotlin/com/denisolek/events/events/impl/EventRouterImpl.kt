@@ -8,16 +8,14 @@ import mu.KotlinLogging
 import org.springframework.stereotype.Component
 
 @Component
-class EventRouterImpl
-    (
-    val handlers: Collection<EventHandler<Event>>
-)
-    : EventRouter {
+class EventRouterImpl(
+    val handlers: Collection<EventHandler<*>>
+) : EventRouter {
     private val log = KotlinLogging.logger {}
 
     override fun route(e: EventEnvelope<Event>) {
         log.info("Routing event envelope: {}", e.id)
-        handlers!!.stream()
+        handlers.stream()
             .filter { h -> h.canHandle(e.event) }
             .map { h -> h as EventHandler<Event> }
             .forEach { h -> h.handle(e.event) }
