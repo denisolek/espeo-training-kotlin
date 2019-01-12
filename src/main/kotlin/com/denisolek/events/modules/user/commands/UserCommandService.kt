@@ -5,6 +5,7 @@ import com.denisolek.events.modules.user.domain.User
 import com.denisolek.events.modules.user.domain.UserRegistered
 import mu.KotlinLogging
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class UserCommandService(
@@ -12,7 +13,8 @@ class UserCommandService(
 ) {
     private val log = KotlinLogging.logger {}
     internal fun register(e: UserRegistered) {
-        log.info("Persisting user: {}", e.id)
-        db.storage[e.id] = User(e.id, e.name, e.role)
+        val id = UUID.randomUUID()
+        log.info("Persisting user: {}", id)
+        db.storage[id] = User(id, e.name, e.role)
     }
 }

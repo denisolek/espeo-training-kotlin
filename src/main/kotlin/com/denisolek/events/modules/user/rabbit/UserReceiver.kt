@@ -11,13 +11,12 @@ import org.springframework.stereotype.Component
 
 @Component
 @RabbitListener(queues = [USER_QUEUE])
-class UserReceiver {
-    private val logger: EventLogger? = null
+class UserReceiver(val logger: EventLogger) {
     private val log = KotlinLogging.logger {}
 
     @RabbitHandler(isDefault = true)
     fun receive(e: EventEnvelope<Event>) {
         log.info("Received event envelope: {}", e.id)
-        logger!!.logEvent(e)
+        logger.logEvent(e)
     }
 }
